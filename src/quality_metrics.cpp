@@ -15,7 +15,7 @@ QualityMetrics QualityMetricsCalculator::calculate(const cv::Mat& img1, const cv
     cv::absdiff(img1, img2, diff);
     cv::Mat mask = (diff == 0);
     metrics.matching_pixels = cv::countNonZero(mask);
-    metrics.total_pixels = img1.rows * img1.cols;
+    metrics.total_pixels = img1.rows * img1.cols * img1.channels();
     
     return metrics;
 }

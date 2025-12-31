@@ -49,8 +49,9 @@ echo "Running edge detection..."
 echo ""
 
 # Run the edge detector
-cd build
+pushd build > /dev/null
 ./bin/canny_edge_detector -i ../data/test_shapes.jpg -o ../output/test_shapes
+popd > /dev/null
 
 echo ""
 echo "=================================="

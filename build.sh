@@ -25,7 +25,15 @@ cmake ..
 
 # Build the project
 echo "Building project..."
-make -j$(nproc)
+# Determine number of cores for parallel build
+if command -v nproc > /dev/null 2>&1; then
+    CORES=$(nproc)
+elif command -v sysctl > /dev/null 2>&1; then
+    CORES=$(sysctl -n hw.ncpu 2>/dev/null || echo 4)
+else
+    CORES=4
+fi
+make -j${CORES}
 
 echo ""
 echo "=================================="

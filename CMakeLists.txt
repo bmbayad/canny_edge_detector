@@ -1,10 +1,20 @@
 cmake_minimum_required(VERSION 3.18)
-project(canny_edge_detector LANGUAGES CXX CUDA)
+project(canny_edge_detector LANGUAGES CXX)
+
+# Try to enable CUDA
+include(CheckLanguage)
+check_language(CUDA)
+if(CMAKE_CUDA_COMPILER)
+    enable_language(CUDA)
+    set(CMAKE_CUDA_STANDARD 14)
+    set(CMAKE_CUDA_STANDARD_REQUIRED ON)
+    message(STATUS "CUDA support enabled")
+else()
+    message(WARNING "CUDA not available - GPU features will rely on OpenCV CUDA bindings")
+endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CUDA_STANDARD 14)
-set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 
 # Find OpenCV with CUDA support
 find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs cudaimgproc cudawarping cudaarithm)
