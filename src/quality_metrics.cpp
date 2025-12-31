@@ -12,7 +12,7 @@ QualityMetrics QualityMetricsCalculator::calculate(const cv::Mat& img1, const cv
     
     // Calculate matching pixels
     cv::Mat diff;
-    cv::absdiff(img1, img2);
+    cv::absdiff(img1, img2, diff);
     cv::Mat mask = (diff == 0);
     metrics.matching_pixels = cv::countNonZero(mask);
     metrics.total_pixels = img1.rows * img1.cols;
@@ -104,7 +104,8 @@ double QualityMetricsCalculator::calculatePixelAccuracy(const cv::Mat& img1, con
     cv::Mat diff;
     cv::absdiff(img1, img2, diff);
     
-    int matching = cv::countNonZero(diff == 0);
+    cv::Mat mask = (diff == 0);
+    int matching = cv::countNonZero(mask);
     int total = img1.rows * img1.cols * img1.channels();
     
     return (static_cast<double>(matching) / total) * 100.0;
