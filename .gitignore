@@ -1,0 +1,46 @@
+# Build directories
+/build/
+/bin/
+/lib/
+
+# CMake files
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/Makefile
+/*.cmake
+
+# Visual Studio / MSVC
+*.sln
+*.vcxproj*
+*.vcxproj.filters
+*.user
+*.vcxproj.user
+ipch/
+*.pdb
+
+# Build outputs
+*.exe
+*.dll
+*.lib
+*.obj
+*.o
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+
+# Python
+venv/
+env/
+
+# OpenCV / local build artifacts
+opencv_build/
+
+
+
