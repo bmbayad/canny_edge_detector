@@ -1,0 +1,27 @@
+# Canny Edge Detection Configuration File
+# Lines starting with # are comments
+
+# Benchmark settings
+[benchmark]
+warmup_runs = 3
+benchmark_runs = 10
+save_outputs = true
+
+# Image processing configuration
+# You can add multiple [image] sections to process multiple images
+
+[image]
+input_path = data/sample.jpg
+output_prefix = output/sample
+threshold1 = 50.0
+threshold2 = 150.0
+aperture_size = 3
+l2gradient = false
+
+[image]
+input_path = data/sample2.jpg
+output_prefix = output/sample2
+threshold1 = 100.0
+threshold2 = 200.0
+aperture_size = 3
+l2gradient = true
