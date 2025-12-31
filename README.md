@@ -86,13 +86,15 @@ implementation is used for the GPU API so the benchmark runs correctly.
 Default (uses `data/input`, `data/output`, `data/results`):
 
 ```bash
-./opencv_test
+./canny_edge_detector    # Linux/macOS
+# On Windows PowerShell use: canny_edge_detector.exe
 ```
 
 Specify custom directories:
 
 ```bash
-./opencv_test /path/to/input /path/to/output /path/to/results
+./canny_edge_detector /path/to/input /path/to/output /path/to/results
+# Windows PowerShell: canny_edge_detector.exe C:\path\to\input C:\path\to\output C:\path\to\results
 ```
 
 Outputs:
