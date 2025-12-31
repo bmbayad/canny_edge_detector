@@ -1,5 +1,6 @@
 # GPU-Accelerated Canny Edge Detector
 
+
 This repository provides a small benchmark that compares a CPU implementation
 of the Canny edge detector against an OpenCV CUDA implementation. It
 processes all images in `data/input`, writes edge images to `data/output`, and
@@ -154,6 +155,10 @@ If you'd like, I can also:
 - Add compile-time guards to gracefully fall back when OpenCV CUDA is not
   available.
 - Add a simple CI job to build and run the benchmark on a sample image.
+
+## Contributors
+
+- Bassam Bayad — author and primary contributor (code, documentation, analysis)
 # GPU-Accelerated Canny Edge Detector
 
 This project implements a Canny edge detector using **OpenCV CUDA** for GPU acceleration and standard CPU execution for comparison. It measures performance, computes quality metrics, and outputs both visual results and CSV benchmarks.
