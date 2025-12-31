@@ -11,11 +11,24 @@ QualityMetrics QualityMetricsCalculator::calculate(const cv::Mat& img1, const cv
     metrics.pixel_accuracy = calculatePixelAccuracy(img1, img2);
     
     // Calculate matching pixels
+    // Note: For single-channel images (like edge detection results), this gives exact pixel matches
+    // For multi-channel images, this counts pixels where ALL channels match
     cv::Mat diff;
     cv::absdiff(img1, img2, diff);
-    cv::Mat mask = (diff == 0);
-    metrics.matching_pixels = cv::countNonZero(mask);
-    metrics.total_pixels = img1.rows * img1.cols * img1.channels();
+    
+    if (img1.channels() == 1) {
+        // Single channel: count zero pixels directly
+        cv::Mat mask = (diff == 0);
+        metrics.matching_pixels = cv::countNonZero(mask);
+        metrics.total_pixels = img1.rows * img1.cols;
+    } else {
+        // Multi-channel: count pixels where all channels are zero
+        cv::Mat diff_gray;
+        cv::cvtColor(diff, diff_gray, cv::COLOR_BGR2GRAY);
+        cv::Mat mask = (diff_gray == 0);
+        metrics.matching_pixels = cv::countNonZero(mask);
+        metrics.total_pixels = img1.rows * img1.cols;
+    }
     
     return metrics;
 }
@@ -104,9 +117,21 @@ double QualityMetricsCalculator::calculatePixelAccuracy(const cv::Mat& img1, con
     cv::Mat diff;
     cv::absdiff(img1, img2, diff);
     
-    cv::Mat mask = (diff == 0);
-    int matching = cv::countNonZero(mask);
-    int total = img1.rows * img1.cols * img1.channels();
+    int matching, total;
+    
+    if (img1.channels() == 1) {
+        // Single channel: count zero pixels directly
+        cv::Mat mask = (diff == 0);
+        matching = cv::countNonZero(mask);
+        total = img1.rows * img1.cols;
+    } else {
+        // Multi-channel: count pixels where all channels are zero
+        cv::Mat diff_gray;
+        cv::cvtColor(diff, diff_gray, cv::COLOR_BGR2GRAY);
+        cv::Mat mask = (diff_gray == 0);
+        matching = cv::countNonZero(mask);
+        total = img1.rows * img1.cols;
+    }
     
     return (static_cast<double>(matching) / total) * 100.0;
 }
